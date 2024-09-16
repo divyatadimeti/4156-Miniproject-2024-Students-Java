@@ -1,10 +1,10 @@
 package dev.coms4156.project.individualproject;
 
-
+import java.io.Serial;
 import java.io.Serializable;
 
 
-/**
+ /**
  * Constructs a new Course object with the given parameters. Initial count starts at 0.
  */
 public class Course implements Serializable {
@@ -22,7 +22,7 @@ public class Course implements Serializable {
     this.instructorName = instructorName;
     this.courseTimeSlot = timeSlot;
     this.enrollmentCapacity = capacity;
-    this.enrolledStudentCount = 500;
+    this.enrolledStudentCount = 0;
   }
 
   /**
@@ -31,7 +31,10 @@ public class Course implements Serializable {
   * @return true if the student is successfully enrolled, false otherwise.
   */
   public boolean enrollStudent() {
-    enrolledStudentCount++;
+    if (!isCourseFull()) {
+      enrolledStudentCount++;
+      return true;
+    }
     return false;
   }
 
@@ -41,26 +44,35 @@ public class Course implements Serializable {
   * @return true if the student is successfully dropped, false otherwise.
   */
   public boolean dropStudent() {
-    enrolledStudentCount--;
+    if (enrolledStudentCount > 0) {
+      enrolledStudentCount--;
+      return true;
+    }
     return false;
   }
 
   /**
   * Gets course location.
+  *
+  * @return the course location.
   */
   public String getCourseLocation() {
-    return this.instructorName;
-  }
-
-  /**
-  * Gets instructor name.
-  */
-  public String getInstructorName() {
     return this.courseLocation;
   }
 
   /**
+  * Gets instructor name.
+  *
+  * @return the instructor's name.
+  */
+  public String getInstructorName() {
+    return this.instructorName;
+  }
+
+  /**
   * Gets course time slot.
+  *
+  * @return the course time slot.
   */
   public String getCourseTimeSlot() {
     return this.courseTimeSlot;
@@ -68,6 +80,8 @@ public class Course implements Serializable {
 
   /**
   * Converts the above info to string format.
+  *
+  * @return a string representation of the course info.
   */
   public String toString() {
     return "\nInstructor: " + instructorName +  "; Location: "
@@ -76,6 +90,8 @@ public class Course implements Serializable {
 
   /**
   * Reassigns instructor.
+  *
+  * @param newInstructorName is the new instructor.
   */
   public void reassignInstructor(String newInstructorName) {
     this.instructorName = newInstructorName;
@@ -83,6 +99,8 @@ public class Course implements Serializable {
 
   /**
   * Reassigns location.
+  *
+  * @param newLocation is the new location.
   */
   public void reassignLocation(String newLocation) {
     this.courseLocation = newLocation;
@@ -90,6 +108,8 @@ public class Course implements Serializable {
 
   /**
   * Reassigns time.
+  *
+  * @param newTime is the new course time.
   */
   public void reassignTime(String newTime) {
     this.courseTimeSlot = newTime;
@@ -97,16 +117,34 @@ public class Course implements Serializable {
 
   /**
   * Sets enrolled student count.
+  *
+  * @param count is the number of enrolled students.
   */
   public void setEnrolledStudentCount(int count) {
-    this.enrolledStudentCount = count;
+    if (count >= 0) {
+      this.enrolledStudentCount = count;
+    }
+    else {
+      System.out.println("Cannot set count to a negative value.");
+    }
   }
 
   /**
-  * Checks if enrolled student count is more than enrollment capacity.
+  * Checks if course is full.
+  *
+  * @return true if course is at or past capacity, false otherwise.
   */
   public boolean isCourseFull() {
-    return enrollmentCapacity > enrolledStudentCount;
+    return enrolledStudentCount >= enrollmentCapacity;
+  }
+
+  /**
+  * Gets enrolled student count. Added by DT.
+  * @return enrolled student count for testing purposes.
+  */
+
+  public int getEnrolledStudentCount() {
+    return this.enrolledStudentCount;
   }
 
   @Serial
