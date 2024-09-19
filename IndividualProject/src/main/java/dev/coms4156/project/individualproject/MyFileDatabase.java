@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * This class represents a file-based database containing department mappings.
  */
+
 public class MyFileDatabase {
 
   /**
@@ -25,6 +26,9 @@ public class MyFileDatabase {
     this.filePath = filePath;
     if (flag == 0) {
       this.departmentMapping = deSerializeObjectFromFile();
+    }
+    else {
+      throw new IllegalArgumentException("Flag must be zero.");
     }
   }
 
@@ -42,7 +46,7 @@ public class MyFileDatabase {
    *
    * @return the deserialized department mapping
    */
-  public HashMap<String, Department> deSerializeObjectFromFile() {
+  public final HashMap<String, Department> deSerializeObjectFromFile() {
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
       Object obj = in.readObject();
       if (obj instanceof HashMap) {
@@ -52,7 +56,7 @@ public class MyFileDatabase {
       }
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
-      return null;
+      return new HashMap<>();
     }
   }
 
