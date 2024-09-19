@@ -1,5 +1,7 @@
 package dev.coms4156.project.individualproject;
 
+import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,8 +28,7 @@ public class MyFileDatabase {
     this.filePath = filePath;
     if (flag == 0) {
       this.departmentMapping = deSerializeObjectFromFile();
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Flag must be zero.");
     }
   }
@@ -47,6 +48,13 @@ public class MyFileDatabase {
    * @return the deserialized department mapping
    */
   public final HashMap<String, Department> deSerializeObjectFromFile() {
+    File file = new File(filePath);
+
+    // Check if file exists and is not empty
+    if (!file.exists() || file.length() == 0) {
+      System.out.println("File not found or is empty, so returning empty department mapping.");
+    }
+
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
       Object obj = in.readObject();
       if (obj instanceof HashMap) {
@@ -54,10 +62,18 @@ public class MyFileDatabase {
       } else {
         throw new IllegalArgumentException("Invalid object type in file.");
       }
-    } catch (IOException | ClassNotFoundException e) {
-      e.printStackTrace();
-      return new HashMap<>();
+
+      // Additional error and exception handling due to avoid error messages.
+    } catch (EOFException e) {
+      System.err.println("Reached end of file unexpectedly.");
+    } catch (IOException e) {
+      System.err.println("I/O error occurred: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      System.err.println("Class not found: " + e.getMessage());
+    } catch (IllegalArgumentException e) {
+      System.err.println(e.getMessage());
     }
+    return new HashMap<>();
   }
 
   /**
@@ -98,9 +114,13 @@ public class MyFileDatabase {
     return result.toString();
   }
 
-  /** The path to the file containing the database entries. */
+  /**
+   * The path to the file containing the database entries.
+   */
   private String filePath;
 
-  /** The mapping of department names to Department objects. */
+  /**
+   * The mapping of department names to Department objects.
+   */
   private HashMap<String, Department> departmentMapping;
 }

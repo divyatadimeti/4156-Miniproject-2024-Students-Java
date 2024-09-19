@@ -4,9 +4,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 
- /**
- * Constructs a new Course object with the given parameters. Initial count starts at 0.
- */
+/**
+* Constructs a new Course object with the given parameters. Initial count starts at 0.
+*/
 public class Course implements Serializable {
 
   /**
@@ -123,8 +123,7 @@ public class Course implements Serializable {
   public void setEnrolledStudentCount(int count) {
     if (count >= 0) {
       this.enrolledStudentCount = count;
-    }
-    else {
+    } else {
       System.out.println("Cannot set count to a negative value.");
     }
   }
@@ -140,6 +139,7 @@ public class Course implements Serializable {
 
   /**
   * Gets enrolled student count. Added by DT.
+  *
   * @return enrolled student count for testing purposes.
   */
 
