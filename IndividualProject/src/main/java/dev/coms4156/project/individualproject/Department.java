@@ -68,8 +68,7 @@ public class Department implements Serializable {
   public void dropPersonFromMajor() {
     if (getNumberOfMajors() > 0) {
       numberOfMajors--;
-    }
-    else{
+    } else {
       System.out.println("Can't drop person from major.");
     }
   }
