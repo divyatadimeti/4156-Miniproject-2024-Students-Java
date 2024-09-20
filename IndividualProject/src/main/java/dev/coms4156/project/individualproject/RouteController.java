@@ -480,13 +480,13 @@ public class RouteController {
   }
 
   /**
-   * Endpoint for changing the instructor of a course.
-   * This method handles PATCH requests to change the instructor of a course identified by
-   * department code and course code. If the course exists, its instructor is updated to the
+   * Endpoint for changing the location of a course. 
+   * If the course exists, its instructor is updated to the
    * provided instructor.
    *
    * @param deptCode   the code of the department containing the course
    * @param courseCode the code of the course to change the instructor for
+   * @param location location to change to
    * @return a ResponseEntity with a success message if the operation is
    *             successful, or an error message if the course is not found
    */
@@ -516,19 +516,15 @@ public class RouteController {
     }
   }
 
-
   /**
-   * Endpoint for changing the instructor of a course.
-   * This method handles PATCH requests to change the instructor of a course identified by
-   * department code and course code. If the course exists, its instructor is updated to the
-   * provided instructor.
+   * Endpoint for handling exceptions provided by the starter code.
    *
-   * @return a ResponseEntity with a success message if the operation is
-   *             successful, or an error message if the course is not found
+   * @return a ResponseEntity with an error message if necessary
+   *         if an error was not caught by other error handling.
    */
   private ResponseEntity<?> handleException(Exception e) {
     System.out.println(e.toString());
-    return new ResponseEntity<>("An Error has occurred", HttpStatus.OK);
+    return new ResponseEntity<>("An Error has occurred", HttpStatus.BAD_REQUEST);
   }
 
 }
