@@ -26,3 +26,4 @@ RouteController.java
 - retrieveCourse had wrong HTTP Status code forbidden.
 - added Locale to string toUpper
 - findCourseTime had "some time" in its return string, instead of actually calling the method to get the time slot.
+- handleException provided method was returning HTTP OK status if an error occurred, which is incorrect. Fixed to Bad request.
