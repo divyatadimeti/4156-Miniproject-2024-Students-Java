@@ -1,3 +1,6 @@
-# Welcome Students of 4156
+# COMS4156 Individual Miniproject
 
-Please follow the assignment specifications on Courseworks when completing this project.
+Instructions to run static bug analyzer:
+- Download PMD 7.5.0
+- Make sure default and errorprone rulesets are in pom.xml
+- Run mvn pmd:check from the IndividualProject repo
