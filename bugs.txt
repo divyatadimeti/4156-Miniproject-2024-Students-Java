@@ -1,0 +1,28 @@
+Course.java
+- getCourseLocation and getInstructorName methods had incorrect return values and needed to be swapped.
+- isCourseFull method should return true if the course is full, but the bug was that it returns true if the course is not full.
+- this.enrolledStudentCount = 500 needed to be changed to 0, since the java doc says initial count starts at 0.
+- enrollStudent and dropStudent did not have sufficient if/else checks to meet conditions.
+
+
+Department.java
+- getDepartmentChair was returning a string instead of the actual value.
+- getNumberOfMajors was returning -this.numberOfMajors, need to remove the negative sign.
+- toString method returns "result.toString()" as a string literal instead of the content of the result variable
+- dropPersonFromMajor needs to check that the number of people in the major is greater than zero before dropping.
+
+
+MyFileDatabase.java
+- deSerializeObjectFromFile: made more robust by checking if object is Hashmap and having more exception catching.
+- deserializeObjectFromFile: now returning hashmap, not null
+- deserializeObjectFromFile: added "final" to fix PMD override error
+
+
+RouteController.java
+- getMajorCountFromDept was returning a negative number of majors.
+- many response entities had the typo "Attributed" instead of "Attribute"
+- created private static variables for repeated strings
+- retrieveDept had wrong HTTP Status codes in the if/else condition for Department found or not found.
+- retrieveCourse had wrong HTTP Status code forbidden.
+- added Locale to string toUpper
+- findCourseTime had "some time" in its return string, instead of actually calling the method to get the time slot.
